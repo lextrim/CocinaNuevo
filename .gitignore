@@ -4,8 +4,6 @@
 /build
 /local.properties
 /*.apk
-/.cxx
-/.externalNativeBuild
 .gradle/
 captures/
 bin/
