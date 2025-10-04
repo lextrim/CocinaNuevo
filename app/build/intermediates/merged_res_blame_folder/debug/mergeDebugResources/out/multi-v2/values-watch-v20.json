@@ -1,0 +1,20 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.valen.cocinanuevo.app-mergeDebugResources-68:/values-watch-v20/values-watch-v20.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\vafeh\\.gradle\\caches\\transforms-4\\d3b32ae977f82f565a280e857b2f3d3c\\transformed\\appcompat-1.6.1\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "from": {
+                        "startLines": "2,5,8",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "55,214,385",
+                        "endLines": "4,7,10",
+                        "endColumns": "12,12,12",
+                        "endOffsets": "209,380,553"
+                    }
+                }
+            ]
+        }
+    ]
+}
