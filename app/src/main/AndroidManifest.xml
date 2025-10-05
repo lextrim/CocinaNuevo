@@ -2,11 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.valen.cocinanuevo">
 
-    <application android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
+    <!-- Permiso runtime para Android 13+ -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <application
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:allowBackup="true"
         android:label="CocinaNuevo"
         android:supportsRtl="true"
         android:theme="@style/Theme.CocinaNuevo">
+
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -15,6 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Receiver para notificaciones programadas -->
+        <receiver
+            android:name=".notifications.NotificationReceiver"
+            android:exported="true" />
     </application>
 </manifest>
-
