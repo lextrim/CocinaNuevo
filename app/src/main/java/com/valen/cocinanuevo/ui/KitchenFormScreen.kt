@@ -2,6 +2,7 @@ package com.valen.cocinanuevo.ui
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -83,8 +84,26 @@ fun KitchenFormScreen(
                         notes = notes.uppercase(),
                         category = selectedCategory.uppercase()
                     )
-                    if (orderId == null) vm.insert(newOrder) else vm.update(newOrder)
-                    onNavigateBack()
+
+                    val triggerMillis = deliveryDate
+
+                    if (orderId == null) {
+                        // Inserción nueva
+                        vm.insert(newOrder)
+                        // No intentamos programar la notificación aquí porque el id generado por Room
+                        // puede no estar disponible inmediatamente. Para evitar errores mostramos instrucción.
+                        Toast.makeText(
+                            context,
+                            "Pedido guardado. Para programar la notificación, edita el pedido y guarda de nuevo.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        onNavigateBack()
+                    } else {
+                        // Actualización existente + reprogramar notificación
+                        vm.updateAndSchedule(newOrder, triggerMillis, context)
+                        Toast.makeText(context, "Pedido actualizado y notificación reprogramada.", Toast.LENGTH_SHORT).show()
+                        onNavigateBack()
+                    }
                 },
                 containerColor = Color(0xFF1976D2)
             ) { Icon(Icons.Filled.Check, contentDescription = "GUARDAR", tint = Color.White) }

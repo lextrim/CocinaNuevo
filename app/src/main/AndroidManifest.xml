@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.valen.cocinanuevo">
 
-    <!-- Permiso runtime para Android 13+ -->
+    <!-- Permisos -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:icon="@mipmap/ic_launcher"

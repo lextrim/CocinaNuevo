@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,11 +18,19 @@ class MainActivity : ComponentActivity() {
     companion object {
         const val ACTION_OPEN_ORDER = "com.valen.cocinanuevo.ACTION_OPEN_ORDER"
         const val EXTRA_ORDER_ID = "orderId"
+        private const val TAG = "NotifDebug"
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
-    ) { /* no-op */ }
+    ) { isGranted: Boolean ->
+        Log.i(TAG, "POST_NOTIFICATIONS permission result: $isGranted")
+        if (!isGranted) {
+            android.widget.Toast.makeText(this, "Permiso de notificaciones no concedido. Activa en ajustes.", android.widget.Toast.LENGTH_LONG).show()
+        } else {
+            // permiso concedido; si quieres que haga algo adicional tras concederlo, lo añadimos aquí
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +39,7 @@ class MainActivity : ComponentActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val permission = Manifest.permission.POST_NOTIFICATIONS
             val granted = ContextCompat.checkSelfPermission(this, permission) == android.content.pm.PackageManager.PERMISSION_GRANTED
+            Log.i(TAG, "POST_NOTIFICATIONS granted=$granted")
             if (!granted) {
                 requestPermissionLauncher.launch(permission)
             }
