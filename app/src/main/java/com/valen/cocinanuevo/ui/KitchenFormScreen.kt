@@ -88,15 +88,9 @@ fun KitchenFormScreen(
                     val triggerMillis = deliveryDate
 
                     if (orderId == null) {
-                        // Inserción nueva
-                        vm.insert(newOrder)
-                        // No intentamos programar la notificación aquí porque el id generado por Room
-                        // puede no estar disponible inmediatamente. Para evitar errores mostramos instrucción.
-                        Toast.makeText(
-                            context,
-                            "Pedido guardado. Para programar la notificación, edita el pedido y guarda de nuevo.",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        // Inserción nueva: usar insertAndSchedule para insertar y programar alarma automáticamente
+                        vm.insertAndSchedule(newOrder, triggerMillis, context)
+                        Toast.makeText(context, "Pedido creado y notificación programada.", Toast.LENGTH_SHORT).show()
                         onNavigateBack()
                     } else {
                         // Actualización existente + reprogramar notificación

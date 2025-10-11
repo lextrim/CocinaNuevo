@@ -23,6 +23,11 @@
             </intent-filter>
         </activity>
 
+        <!-- Activity para abrir/editar pedidos desde la notificación -->
+        <activity
+            android:name=".OrderEditActivity"
+            android:exported="false" />
+
         <!-- Receiver para notificaciones programadas -->
         <receiver
             android:name=".notifications.NotificationReceiver"
